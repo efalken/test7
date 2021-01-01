@@ -1,0 +1,1070 @@
+{
+  "contractName": "BettingContract",
+  "address": "0xf81762b324365A309cB5257e5a63C58bBa82DE87",
+	"abi": [
+			{
+				"inputs": [{
+          "internalType": "address payable",
+          "name": "tBAddress",
+          "type": "address"
+        }],
+				"payable": false,
+        "stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+      {
+  			"anonymous": false,
+  			"inputs": [
+  				{
+  					"indexed": true,
+  					"internalType": "bytes32",
+  					"name": "contractHash",
+  					"type": "bytes32"
+  				},
+  				{
+  					"indexed": true,
+  					"internalType": "address",
+  					"name": "bettor",
+  					"type": "address"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint8",
+  					"name": "epoch",
+  					"type": "uint8"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint8",
+  					"name": "pick",
+  					"type": "uint8"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint8",
+  					"name": "matchnum",
+  					"type": "uint8"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "timestamp",
+  					"type": "uint256"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "betsize",
+  					"type": "uint256"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "payoff",
+  					"type": "uint256"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "oddsOffered",
+  					"type": "uint256"
+  				}
+  			],
+  			"name": "BetBigRecord",
+  			"type": "event"
+  		},
+  		{
+  			"anonymous": false,
+  			"inputs": [
+  				{
+  					"indexed": true,
+  					"internalType": "bytes32",
+  					"name": "contractHash",
+  					"type": "bytes32"
+  				},
+  				{
+  					"indexed": true,
+  					"internalType": "address",
+  					"name": "bettor",
+  					"type": "address"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint8",
+  					"name": "epoch",
+  					"type": "uint8"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint8",
+  					"name": "pick",
+  					"type": "uint8"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint8",
+  					"name": "matchnum",
+  					"type": "uint8"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "timestamp",
+  					"type": "uint256"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "betsize",
+  					"type": "uint256"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "payoff",
+  					"type": "uint256"
+  				}
+  			],
+  			"name": "BetRecord",
+  			"type": "event"
+  		},
+  		{
+  			"anonymous": false,
+  			"inputs": [
+  				{
+  					"indexed": false,
+  					"internalType": "uint256[32]",
+  					"name": "decOdds",
+  					"type": "uint256[32]"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint8",
+  					"name": "epoch",
+  					"type": "uint8"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "timestamp",
+  					"type": "uint256"
+  				}
+  			],
+  			"name": "DecOddsPosted",
+  			"type": "event"
+  		},
+  		{
+  			"anonymous": false,
+  			"inputs": [
+  				{
+  					"indexed": false,
+  					"internalType": "uint8[32]",
+  					"name": "winner",
+  					"type": "uint8[32]"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint8",
+  					"name": "epoch",
+  					"type": "uint8"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "timestamp",
+  					"type": "uint256"
+  				}
+  			],
+  			"name": "ResultsPosted",
+  			"type": "event"
+  		},
+  		{
+  			"anonymous": false,
+  			"inputs": [
+  				{
+  					"indexed": false,
+  					"internalType": "uint256[32]",
+  					"name": "starttimes",
+  					"type": "uint256[32]"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint8",
+  					"name": "epoch",
+  					"type": "uint8"
+  				},
+  				{
+  					"indexed": false,
+  					"internalType": "uint256",
+  					"name": "timestamp",
+  					"type": "uint256"
+  				}
+  			],
+  			"name": "StartTimesPosted",
+  			"type": "event"
+  		},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_minbet",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_maxPos",
+						"type": "uint256"
+					}
+				],
+				"name": "adjustParams",
+				"outputs": [],
+				"payable": false,
+        "stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+          {
+  					"internalType": "uint8",
+  					"name": "matchNumber",
+  					"type": "uint8"
+  				},
+  				{
+  					"internalType": "uint8",
+  					"name": "pickLong",
+  					"type": "uint8"
+  				}
+				],
+				"name": "bet",
+        "constant": false,
+				"outputs": [],
+				"payable": true,
+        "stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+          {
+  					"internalType": "uint8",
+  					"name": "_matchNum",
+  					"type": "uint8"
+  				},
+  				{
+  					"internalType": "uint8",
+  					"name": "pickLong",
+  					"type": "uint8"
+  				}
+				],
+				"name": "betBig",
+				"outputs": [],
+        "constant": false,
+				"payable": true,
+        "stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+          {
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "betLong",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+				],
+				"name": "betPayout",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+      {
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "_subkID",
+						"type": "bytes32"
+					}
+				],
+				"name": "checkOpen",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "_subkID",
+						"type": "bytes32"
+					}
+				],
+				"name": "checkRedeem",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "concentrationLimit",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+          {
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "decOdds",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "earliestStart",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "fundBook",
+				"outputs": [],
+        "constant": false,
+				"payable": true,
+        "stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "inactiveBook",
+				"outputs": [],
+				"payable": false,
+        "stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "subkid2",
+						"type": "bytes32"
+					}
+				],
+				"name": "killBig",
+        "constant": false,
+				"outputs": [],
+				"payable": false,
+        "stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "lpStruct",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "shares",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "epoch",
+						"type": "uint8"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "margin",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "minBet",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "betEpoch",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "nonce",
+				"outputs": [
+					{
+						"internalType": "uint32",
+						"name": "",
+						"type": "uint32"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"name": "offercontracts",
+				"outputs": [
+  				{
+  					"internalType": "uint8",
+  					"name": "pick",
+  					"type": "uint8"
+  				},
+  				{
+  					"internalType": "uint8",
+  					"name": "matchNum",
+  					"type": "uint8"
+  				},
+  				{
+  					"internalType": "uint8",
+  					"name": "epoch",
+  					"type": "uint8"
+  				},
+  				{
+  					"internalType": "address",
+  					"name": "bettor",
+  					"type": "address"
+  				},
+  				{
+  					"internalType": "uint256",
+  					"name": "betAmount",
+  					"type": "uint256"
+  				},
+  				{
+  					"internalType": "uint256",
+  					"name": "payoff",
+  					"type": "uint256"
+  				},
+  				{
+  					"internalType": "uint256",
+  					"name": "oddsOffered",
+  					"type": "uint256"
+  				}
+  			],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "oracleAdmin",
+				"outputs": [
+					{
+						"internalType": "address payable",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "oracleBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "_subkId",
+						"type": "bytes32"
+					}
+				],
+				"name": "redeem",
+        "constant": false,
+				"outputs": [],
+				"payable": false,
+        "stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "sharesToSell",
+						"type": "uint256"
+					}
+				],
+				"name": "withdrawBook",
+				"outputs": [],
+        "constant": false,
+				"payable": false,
+        "stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8[32]",
+						"name": "winner",
+						"type": "uint8[32]"
+					}
+				],
+				"name": "settle",
+				"outputs": [],
+				"payable": false,
+        "stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "i",
+						"type": "uint256"
+					}
+				],
+				"name": "showLPGross",
+				"outputs": [
+          {
+						"internalType": "uint256[32]",
+						"name": "",
+						"type": "uint256[32]"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "i",
+						"type": "uint256"
+					}
+				],
+				"name": "showLongs",
+				"outputs": [
+          {
+						"internalType": "uint256[32]",
+						"name": "",
+						"type": "uint256[32]"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showMargin",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "unusedCapital",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "usedCapital",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "betCapital",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "oraclBalance",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "redeemPot",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "kontractEthBal",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+      {
+				"inputs": [],
+				"name": "showSchedString",
+				"outputs": [
+					{
+						"internalType": "string[32]",
+						"name": "",
+						"type": "string[32]"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showStartTime",
+				"outputs": [
+					{
+						"internalType": "uint256[32]",
+						"name": "eoBetting",
+						"type": "uint256[32]"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showdecOdds",
+				"outputs": [
+					{
+						"internalType": "uint256[32]",
+						"name": "",
+						"type": "uint256[32]"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "startTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"name": "subcontracts",
+				"outputs": [
+  				{
+  					"internalType": "uint8",
+  					"name": "pick",
+  					"type": "uint8"
+  				},
+  				{
+  					"internalType": "uint8",
+  					"name": "matchNum",
+  					"type": "uint8"
+  				},
+  				{
+  					"internalType": "uint8",
+  					"name": "epoch",
+  					"type": "uint8"
+  				},
+  				{
+  					"internalType": "address",
+  					"name": "bettor",
+  					"type": "address"
+  				},
+  				{
+  					"internalType": "uint256",
+  					"name": "betAmount",
+  					"type": "uint256"
+  				},
+  				{
+  					"internalType": "uint256",
+  					"name": "payoff",
+  					"type": "uint256"
+  				}
+  			],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "subkid",
+						"type": "bytes32"
+					}
+				],
+				"name": "takeBig",
+        "constant": false,
+				"outputs": [],
+				"payable": true,
+        "stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "teamSchedule",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"name": "pickEpochResult",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalShares",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+        "stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256[32]",
+						"name": "_decOdds",
+						"type": "uint256[32]"
+					}
+				],
+				"name": "transmitDecOdds",
+				"outputs": [],
+				"payable": false,
+        "stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string[32]",
+						"name": "_teamSchedule",
+						"type": "string[32]"
+					},
+					{
+						"internalType": "uint256[32]",
+						"name": "_startTime",
+						"type": "uint256[32]"
+					},
+					{
+						"internalType": "uint256[32]",
+						"name": "_decOdds",
+						"type": "uint256[32]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "earlyStart",
+						"type": "uint256"
+					}
+				],
+				"name": "transmitInit",
+				"outputs": [],
+				"payable": false,
+        "stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+  "networks": {
+  "4": {
+    "events" : [
+      {
+       "anonymous": false,
+       "inputs": [
+         {
+           "indexed": true,
+           "internalType": "bytes32",
+           "name": "contractHash",
+           "type": "bytes32"
+         },
+         {
+           "indexed": true,
+           "internalType": "address",
+           "name": "bettor",
+           "type": "address"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint8",
+           "name": "epoch",
+           "type": "uint8"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint8",
+           "name": "pick",
+           "type": "uint8"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint8",
+           "name": "matchnum",
+           "type": "uint8"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint256",
+           "name": "timestamp",
+           "type": "uint256"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint256",
+           "name": "betsize",
+           "type": "uint256"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint256",
+           "name": "payoff",
+           "type": "uint256"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint256",
+           "name": "oddsOffered",
+           "type": "uint256"
+         }
+       ],
+       "name": "BetBigRecord",
+       "type": "event"
+     },
+     {
+       "anonymous": false,
+       "inputs": [
+         {
+           "indexed": true,
+           "internalType": "bytes32",
+           "name": "contractHash",
+           "type": "bytes32"
+         },
+         {
+           "indexed": true,
+           "internalType": "address",
+           "name": "bettor",
+           "type": "address"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint8",
+           "name": "epoch",
+           "type": "uint8"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint8",
+           "name": "pick",
+           "type": "uint8"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint8",
+           "name": "matchnum",
+           "type": "uint8"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint256",
+           "name": "timestamp",
+           "type": "uint256"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint256",
+           "name": "betsize",
+           "type": "uint256"
+         },
+         {
+           "indexed": false,
+           "internalType": "uint256",
+           "name": "payoff",
+           "type": "uint256"
+         }
+       ],
+       "name": "BetRecord",
+       "type": "event"
+     }
+     ]
+}
+}
+}

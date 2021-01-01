@@ -1,0 +1,825 @@
+{
+  "contractName": "Oracle",
+  "address": "0xa6f09dD8A3199CB28181457260Bc8eDb0405Fd51",
+	"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address payable",
+						"name": "bettingk",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_token",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256[32]",
+						"name": "decOdds",
+						"type": "uint256[32]"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint8",
+						"name": "epoch",
+						"type": "uint8"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "DecOddsPosted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "process",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "proposer",
+						"type": "address"
+					}
+				],
+				"name": "Proposal",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint8[32]",
+						"name": "winner",
+						"type": "uint8[32]"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint8",
+						"name": "epoch",
+						"type": "uint8"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "ResultsPosted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string[32]",
+						"name": "sched",
+						"type": "string[32]"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint8",
+						"name": "epoch",
+						"type": "uint8"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "SchedulePosted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256[32]",
+						"name": "starttimes",
+						"type": "uint256[32]"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint8",
+						"name": "epoch",
+						"type": "uint8"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "StartTimesPosted",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "betEpoch",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "bond",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amt",
+						"type": "uint256"
+					}
+				],
+				"name": "depositTokens",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "dividendClaim",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "earliestStart",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "BettingContract",
+				"outputs": [
+					{
+						"internalType": "contract Betting",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string[32]",
+						"name": "teamsched",
+						"type": "string[32]"
+					},
+					{
+						"internalType": "uint256[32]",
+						"name": "starts",
+						"type": "uint256[32]"
+					},
+					{
+						"internalType": "uint256[32]",
+						"name": "decimalOdds",
+						"type": "uint256[32]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "earlyStart",
+						"type": "uint256"
+					}
+				],
+				"name": "initPost",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "initProcess",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "localSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256[32]",
+						"name": "adjDecimalOdds",
+						"type": "uint256[32]"
+					}
+				],
+				"name": "oddsPost",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "oddsProcess",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256[2]",
+						"name": "minbetMaxParam",
+						"type": "uint256[2]"
+					}
+				],
+				"name": "paramPost",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "paramProcess",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "propMiscParams",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "propNumber",
+				"outputs": [
+					{
+						"internalType": "uint16",
+						"name": "",
+						"type": "uint16"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "propOdds",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "propResults",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "propSchedule",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "propStartTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "proposer",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint8[32]",
+						"name": "resultVector",
+						"type": "uint8[32]"
+					}
+				],
+				"name": "settlePost",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "settleProcess",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showOdds",
+				"outputs": [
+					{
+						"internalType": "uint256[32]",
+						"name": "adjOdds",
+						"type": "uint256[32]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showResults",
+				"outputs": [
+					{
+						"internalType": "uint8[32]",
+						"name": "resultVector",
+						"type": "uint8[32]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showSched",
+				"outputs": [
+					{
+						"internalType": "string[32]",
+						"name": "teamSched",
+						"type": "string[32]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showVotes",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "proposalEndTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "yesVotes",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "noVotes",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "showpropStartTimes",
+				"outputs": [
+					{
+						"internalType": "uint256[32]",
+						"name": "teamStart",
+						"type": "uint256[32]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "timer",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "token",
+				"outputs": [
+					{
+						"internalType": "contract Token",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "tokenBalances",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "tokenVoteTime",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "underReview",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bool",
+						"name": "sendData",
+						"type": "bool"
+					}
+				],
+				"name": "vote",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "voteNo",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bool",
+						"name": "isYes",
+						"type": "bool"
+					}
+				],
+				"name": "voteToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "voteTracker",
+				"outputs": [
+					{
+						"internalType": "uint32",
+						"name": "",
+						"type": "uint32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "voteYes",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amt",
+						"type": "uint256"
+					}
+				],
+				"name": "withdrawTokens",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+      {
+				"stateMutability": "payable",
+				"payable": true,
+				"constant": false,
+				"type": "receive"
+			}
+		],
+  "networks": {
+   "4": {
+     "events" : [	{
+ 				"anonymous": false,
+ 				"inputs": [
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint256[32]",
+ 						"name": "decOdds",
+ 						"type": "uint256[32]"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint8",
+ 						"name": "epoch",
+ 						"type": "uint8"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint256",
+ 						"name": "timestamp",
+ 						"type": "uint256"
+ 					}
+ 				],
+ 				"name": "DecOddsPosted",
+ 				"type": "event"
+ 			},
+ 			{
+ 				"anonymous": false,
+ 				"inputs": [
+ 					{
+ 						"indexed": false,
+ 						"internalType": "string",
+ 						"name": "process",
+ 						"type": "string"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint256",
+ 						"name": "timestamp",
+ 						"type": "uint256"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "address",
+ 						"name": "proposer",
+ 						"type": "address"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint256",
+ 						"name": "yesVotes",
+ 						"type": "uint256"
+ 					}
+ 				],
+ 				"name": "Proposal",
+ 				"type": "event"
+ 			},
+ 			{
+ 				"anonymous": false,
+ 				"inputs": [
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint8[32]",
+ 						"name": "winner",
+ 						"type": "uint8[32]"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint8",
+ 						"name": "epoch",
+ 						"type": "uint8"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint256",
+ 						"name": "timestamp",
+ 						"type": "uint256"
+ 					}
+ 				],
+ 				"name": "ResultsPosted",
+ 				"type": "event"
+ 			},
+ 			{
+ 				"anonymous": false,
+ 				"inputs": [
+ 					{
+ 						"indexed": false,
+ 						"internalType": "string[32]",
+ 						"name": "sched",
+ 						"type": "string[32]"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint8",
+ 						"name": "epoch",
+ 						"type": "uint8"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint256",
+ 						"name": "timestamp",
+ 						"type": "uint256"
+ 					}
+ 				],
+ 				"name": "SchedulePosted",
+ 				"type": "event"
+ 			},
+ 			{
+ 				"anonymous": false,
+ 				"inputs": [
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint256[32]",
+ 						"name": "starttimes",
+ 						"type": "uint256[32]"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint8",
+ 						"name": "epoch",
+ 						"type": "uint8"
+ 					},
+ 					{
+ 						"indexed": false,
+ 						"internalType": "uint256",
+ 						"name": "timestamp",
+ 						"type": "uint256"
+ 					}
+ 				],
+ 				"name": "StartTimesPosted",
+ 				"type": "event"
+ 			}]
+    }
+  }
+}
