@@ -1,23 +1,21 @@
-import React, {useRef} from "react"
-import CryptowatchEmbed from "cryptowatch-embed"
+import React from "react"
 import { Box } from "@rebass/grid"
 import TradingViewWidget from 'react-tradingview-widget'
-import { A } from "./Colors";
 
-export default
-    ({...props}) =>
-        <Box
+export default function ChartFunction({ ...props }) {
+    return <Box
         style={{
             overflow: "hidden"
         }}>
-            <Box
+        <Box
             style={{
                 transform: "scale(1.01)",
                 filter: "grayscale(30%)"
             }}>
-                <TradingViewWidget
+            <TradingViewWidget
                 save_image={false}
                 hide_legend={false}
-                {...props}/>
-            </Box>
+                {...props} />
         </Box>
+    </Box>
+}

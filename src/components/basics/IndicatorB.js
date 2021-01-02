@@ -1,32 +1,32 @@
-import {C, D, B} from './Colors'
-import {Box, Flex} from '@rebass/grid'
+import { C, B } from './Colors'
+import { Box, Flex } from '@rebass/grid'
 import React from 'react'
 
 
-export default
-    ({size, label, value, ...props}) =>
-        <Flex
+export default function IndicatorB({ size, label, value, ...props }) {
+    return <Flex
         {...props}
         justifyContent="space-between"
         style={{
-        paddingBottom: 8,
-        borderBottom: `thin solid rgb(213, 87, 87)`,
-        fontSize: size
+            paddingBottom: 8,
+            borderBottom: `thin solid rgb(213, 87, 87)`,
+            fontSize: size
         }}>
-            
-            <Box
+
+        <Box
             mr="20px"
             style={{
                 color: C
             }}>
-                {label}
-            </Box>
-            
-            <Box
+            {label}
+        </Box>
+
+        <Box
             style={{
                 color: B
             }}>
-                {value}
-            </Box>
-            
-        </Flex>
+            {value}
+        </Box>
+
+    </Flex>
+}

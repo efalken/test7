@@ -1,5 +1,5 @@
-import {D, F} from '../basics/Colors'
-import {Box, Flex} from '@rebass/grid'
+import { D, F } from '../basics/Colors'
+import { Box, Flex } from '@rebass/grid'
 import React from 'react'
 import Text from '../basics/Text'
 import Triangle from '../basics/Triangle'
@@ -27,12 +27,12 @@ export default ({ order: [by, asc], setOrder }) => (
     >
       <Text size="14px">ContractHash</Text>
     </Box>
- <Box width="100%">
+    <Box width="100%">
       <Box>
         <Flex ml="25px">Click to Sort
         </Flex>
         <br />
-       </Box>
+      </Box>
 
 
       <Flex

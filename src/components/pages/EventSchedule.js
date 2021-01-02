@@ -3,15 +3,12 @@ import { drizzleConnect } from '@drizzle/react-plugin'
 import PropTypes from 'prop-types'
 import { autoBind } from 'react-extras'
 import Text from '../basics/Text'
-import IndicatorD from "../basics/IndicatorD"
-import Oracle from '../../noTruffleContracts/Oracle.json'
+import Oracle from '../../abis/Oracle.json'
 import {
   Box,
   Flex
 } from '@rebass/grid'
-//import moment from 'moment';
 var moment = require("moment");
-//var momentTz = require("moment-timezone");
 
 class EventSchedule extends Component {
 
@@ -20,9 +17,9 @@ class EventSchedule extends Component {
     autoBind(this)
 
     this.assets = [{
-        contract: context.drizzle.contracts.OracleJson,
-        id: 1
-      }
+      contract: context.drizzle.contracts.OracleJson,
+      id: 1
+    }
     ]
 
 
@@ -35,115 +32,109 @@ class EventSchedule extends Component {
 
 
   componentDidMount() {
-    document.title='Schedule Event Logs';
-    Object.keys(this.assets).forEach(function(asset) {
-        this.getbetHistoryArray(asset)
-      }, this);
+    document.title = 'Schedule Event Logs';
+    Object.keys(this.assets).forEach(function (asset) {
+      this.getbetHistoryArray(asset)
+    }, this);
 
   }
 
-  timeConverter(UNIX_timestamp){
+  timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
     var year = a.getFullYear();
     var month = a.getMonth();
     var date = a.getDate();
     var hour = a.getHours();
     var min = a.getMinutes();
-    var sec = a.getSeconds();
     var time = date + '/' + month + '/' + year + ' ' + hour + ':' + min;
     return time;
   }
 
-  timeDay(UNIX_timestamp){
+  timeDay(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
     var day = a.getDay();
     return day;
   }
 
-
-
-
-  getbetHistoryArray() {
+  async getbetHistoryArray() {
     const web3 = this.context.drizzle.web3
-    const contractweb3 = new web3.eth.Contract(Oracle.abi, Oracle.address);
+    const id = await web3.eth.net.getId();
+    const oracleContractAddress = Oracle.networks[id].address;
+    const contractweb3 = new web3.eth.Contract(Oracle.abi, oracleContractAddress);
     var pricedata = [];
-    contractweb3.getPastEvents(
+    const events = await contractweb3.getPastEvents(
       'SchedulePosted',
       {
         fromBlock: 6000123,
         toBlock: 'latest'
       }
-    ).then(function(events) {
-      events.forEach(function(element) {
-        pricedata.push({
-          games: element.returnValues.sched,
-          Epoch: element.returnValues.epoch,
-          time: element.returnValues.timestamp})
+    )
+    events.forEach(function (element) {
+      pricedata.push({
+        games: element.returnValues.sched,
+        Epoch: element.returnValues.epoch,
+        time: element.returnValues.timestamp
+      })
     }, this);
-      this.matchHistory = pricedata
-    }.bind(this))
+    this.matchHistory = pricedata
   }
 
 
-//  this.priceHistory = [this.matchHistory, this.matcHistory2, this.matchHistory3, this.matchHistory4]
+  //  this.priceHistory = [this.matchHistory, this.matcHistory2, this.matchHistory3, this.matchHistory4]
 
 
   openEtherscan() {
-     const url = "https://rinkeby.etherscan.io/address/0xBA8f31a128f1CF6f1A50B87DAeee0AE1e1cf98f3";
+    const url = "https://rinkeby.etherscan.io/address/0xBA8f31a128f1CF6f1A50B87DAeee0AE1e1cf98f3";
     // new const url = "https://ropsten.etherscan.io/address/0xc9c61e5Ec1b7E7Af5Ccb91b6431733dE6d62cAC3#code";
     window.open(url, "_blank");
   }
 
 
   render() {
-    let epochday = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
-
-
     if (Object.keys(this.matchHistory).length === 0)
       return (
         <Text size="20px" weight="200">Waiting...</Text>
-        )
-    else
-    {
+      )
+    else {
       return (
         <div>
 
-        <Text size="20px">
-          <a
-            className="nav-header"
-            style={{
-              cursor: "pointer",
-            }}
-            href="/"
-          >
-            Back
+          <Text size="20px">
+            <a
+              className="nav-header"
+              style={{
+                cursor: "pointer",
+              }}
+              href="/"
+            >
+              Back
           </a>
-        </Text>
-        <Box mt="15px"
-        mx="30px" >
-        <Flex width="100%"
-        justifyContent="marginLeft" >
-        <Text size="14px" weight="300"> These event logs are created with every new epoch. Their order
-        is consistent with the odds, results, and start time orders. Each item represents a match, and
-        has the format "sport:homeTeam:awayTeam". Thus to validate the oracle, apply the most recent
+          </Text>
+          <Box mt="15px"
+            mx="30px" >
+            <Flex width="100%"
+              justifyContent="marginLeft" >
+              <Text size="14px" weight="300"> These event logs are created with every new epoch. Their order
+              is consistent with the odds, results, and start time orders. Each item represents a match, and
+              has the format "sport:homeTeam:awayTeam". Thus to validate the oracle, apply the most recent
         schedule data listed here to odds, results, and start times.</Text>
-        </Flex>
-        </Box>
-                <br />
+            </Flex>
+          </Box>
+          <br />
 
-                <Text size="12px" weight="200">
-                  {" "}
-                  Time, Epoch, match0, match1, match2, match3, match4, match5, match6, match7, match8, match9,
+          <Text size="12px" weight="200">
+            {" "}
+                  Time, Week, match0, match1, match2, match3, match4, match5, match6, match7, match8, match9,
                   match10, match11, match2, match13, match14, match15, match16, match17, match18, match19,
                   match20, match21, match22, match23, match24, match25, match26, match27, match28, match29, match30, match31
                 </Text>{" "}
-                <br />
-                {this.matchHistory.map((event) => (
-                  <div key={event}>
-                    <Text size="12px" weight="200">
-                      {" "}
-                      {moment.unix(event.time).format("DD-MM-YYTHH:mm")},{" "}
-                      {event.Epoch},
+          <br />
+          {this.matchHistory.map((event) => (
+            <div key={event}>
+              <Text size="12px" weight="200">
+                {" "}
+                {moment.unix(event.time).format("DD-MM-YYTHH:mm")},{" "}
+                {event.Epoch},
                       {event.time},
                       {event.games[0]},
                       {event.games[1]},
@@ -177,10 +168,10 @@ class EventSchedule extends Component {
                       {event.games[29]},
                       {event.games[30]},
                       {event.games[31]}
-                    </Text>
-                    <br />
-                  </div>
-                ))}
+              </Text>
+              <br />
+            </div>
+          ))}
 
 
         </div>

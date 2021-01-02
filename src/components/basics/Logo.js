@@ -1,13 +1,13 @@
-import React from 'react'
-import Logo from '../../images/logo.png'
-import { Box, Flex } from '@rebass/grid'
+import React from 'react';
+import Logo from '../../images/logo.png';
 
 
-export default
-    () =>
-    	<a href="/">
-	        <img
-	        width={300}
-	        src={Logo}
-					className="header-logo" />
-        </a>
+export default function LogoImage() {
+	return <a href="/">
+		<img
+			width={300}
+			src={Logo}
+			alt="Logo"
+			className="header-logo" />
+	</a>;
+}

@@ -1,5 +1,5 @@
-import {D} from '../basics/Colors'
-import {Box, Flex} from '@rebass/grid'
+import { D } from '../basics/Colors'
+import { Box, Flex } from '@rebass/grid'
 import React from 'react'
 import Text from '../basics/Text'
 import Button from '../basics/Button'

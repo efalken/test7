@@ -3,30 +3,31 @@ import { Box, Flex } from '@rebass/grid'
 import React from 'react'
 
 
-export default
-  ({ size, label, value, ...props }) =>
-    <Flex
-      {...props}
-      justifyContent="space-between"
+export default function IndicatorD({ size, label, value, ...props }) {
+  return <Flex
+    {...props}
+    justifyContent="space-between"
+    style={{
+      paddingBottom: 8,
+      borderBottom: `thin solid rgb(112, 180, 63)`,
+      fontSize: size
+    }}>
+
+    <Box
+      mr="20px"
       style={{
-        paddingBottom: 8,
-        borderBottom: `thin solid rgb(112, 180, 63)`,
-        fontSize: size
+        color: C
       }}>
+      {label}
+    </Box>
 
-      <Box
-        mr="20px"
-        style={{
-          color: C
-        }}>
-        {label}
-      </Box>
+    <Box
+      style={{
+        color: B
+      }}>
+      {value}
+    </Box>
 
-      <Box
-        style={{
-          color: B
-        }}>
-        {value}
-      </Box>
+  </Flex>
 
-    </Flex>
+}

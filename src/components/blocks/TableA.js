@@ -1,5 +1,5 @@
 import C from '../basics/Colors'
-import {Box} from '@rebass/grid'
+import { Box } from '@rebass/grid'
 import React from 'react'
 import Styled from 'styled-components'
 
@@ -21,9 +21,9 @@ const Table = Styled.table`
     This components displays a value
 */
 export default
-    ({columns, rows, ...props}) =>
+    ({ columns, rows, ...props }) =>
         <Box {...props}>
-          {/* <Table>
+            {/* <Table>
             <tbody>
                 <tr>
                     <th></th>
@@ -47,10 +47,10 @@ export default
                     {rows.map((row, rindex) =>
                         <td key={rindex}>
                             {row.map((price, pindex) =>
-                            <tr key={pindex}>{rindex === 0 ? price : price}</tr>
+                                <tr key={pindex}>{rindex === 0 ? price : price}</tr>
                             )}
                         </td>
                     )}
                 </tbody>
             </Table>
-       </Box>
+        </Box>

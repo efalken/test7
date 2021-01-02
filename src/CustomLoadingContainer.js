@@ -1,46 +1,60 @@
 import { drizzleConnect } from "@drizzle/react-plugin";
 import React, { Children, Component } from "react";
 import PropTypes from "prop-types";
-import Football from "./noTruffleContracts/Betting.json";
-import Oracle from './noTruffleContracts/Oracle.json';
+import Football from "./abis/Betting.json";
+import Oracle from './abis/Oracle.json';
 
 /*
  * Create component.
  */
 
 class CustomLoader extends Component {
+  state = {
+    correctNetwork: true
+  }
+
   constructor(props, context) {
     super(props);
   }
 
-  componentDidMount() {
-    console.log(this.context);
+  async main() {
     const drizz = this.context.drizzle;
-    var FOOT0Config = {
-      contractName: "BetSwap",
-      web3Contract: new drizz.web3.eth.Contract(
-        Football.abi,
-        "0xf81762b324365A309cB5257e5a63C58bBa82DE87"
-      )
-    };
-    var FOOT1Config = {
-      contractName: "OracleSwap",
-      web3Contract: new drizz.web3.eth.Contract(
-        Oracle.abi,
-        "0xa6f09dD8A3199CB28181457260Bc8eDb0405Fd51"
-      )
-    };
-    var FOOT2Config = {
-      contractName: "FOOT2Swap",
-      web3Contract: new drizz.web3.eth.Contract(
-        Football.abi,
-        "0x477eef0bfB13821F731f768e9ceb445C2C19fcDc"
-      )
-    };
+    const id = (await drizz.web3.eth.net.getId()).toString();
+    if (Object.keys(Football.networks).includes(id)) {
+      const bettingContractAddress = Football.networks[id].address;
+      const oracleContractAddress = Oracle.networks[id].address;
+      var FOOT0Config = {
+        contractName: "BetSwap",
+        web3Contract: new drizz.web3.eth.Contract(
+          Football.abi,
+          bettingContractAddress
+        )
+      };
+      var FOOT1Config = {
+        contractName: "OracleSwap",
+        web3Contract: new drizz.web3.eth.Contract(
+          Oracle.abi,
+          oracleContractAddress
+        )
+      };
+      var FOOT2Config = {
+        contractName: "FOOT2Swap",
+        web3Contract: new drizz.web3.eth.Contract(
+          Football.abi,
+          bettingContractAddress
+        )
+      };
 
-    this.context.drizzle.addContract(FOOT0Config);
-    this.context.drizzle.addContract(FOOT1Config);
-    this.context.drizzle.addContract(FOOT2Config);
+      this.context.drizzle.addContract(FOOT0Config);
+      this.context.drizzle.addContract(FOOT1Config);
+      this.context.drizzle.addContract(FOOT2Config);
+    } else {
+      this.setState({ correctNetwork: false });
+    }
+  }
+
+  componentDidMount() {
+    this.main();
   }
 
   render() {
@@ -54,7 +68,7 @@ class CustomLoader extends Component {
           <div className="pure-g">
             <div className="pure-u-1-1">
               <h1>⚠️</h1>
-              <p>
+              <p style={{ color: 'white' }}>
                 This browser has no connection to the Ethereum network. Please
                 use the Chrome/FireFox extension MetaMask, or dedicated Ethereum
                 browsers Mist or Parity.
@@ -74,7 +88,7 @@ class CustomLoader extends Component {
           <div className="pure-g">
             <div className="pure-u-1-1">
               <h1>🦊</h1>
-              <p>
+              <p style={{ color: 'white' }}>
                 <strong>{"We can't find any Ethereum accounts!"}</strong> Please
                 check and make sure Metamask or your browser are pointed at the
                 correct network and your account is unlocked.
@@ -85,9 +99,26 @@ class CustomLoader extends Component {
       );
     }
 
+    if (!this.state.correctNetwork) {
+      return (
+        <main className="container loading-screen">
+          <div className="pure-g">
+            <div className="pure-u-1-1">
+              <h1>🦊</h1>
+              <p style={{ color: 'white' }}>
+                <strong>{"We can't find depoyed contract on the selected network!"}</strong> Please
+                check and make sure Metamask or your browser are pointed at the
+                correct network.
+              </p>
+            </div>
+          </div>
+        </main>
+      );
+    }
+
     if (
       this.props.drizzleStatus.initialized &&
-      Object.keys(this.context.drizzle.contracts).length === 4
+      Object.keys(this.context.drizzle.contracts).length === 3
     ) {
       return Children.only(this.props.children);
     }
@@ -101,7 +132,7 @@ class CustomLoader extends Component {
         <div className="pure-g">
           <div className="pure-u-1-1">
             <h1>⚙️</h1>
-            <p>Loading dapp...</p>
+            <p style={{ color: 'white' }}>Loading dapp...</p>
           </div>
         </div>
       </main>

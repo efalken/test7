@@ -1,6 +1,3 @@
-
-const Web3 = require('web3');
-
 const drizzleOptions = {
   web3: {
     block: false,

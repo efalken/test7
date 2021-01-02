@@ -5,7 +5,6 @@ import Input from './Input'
 import Button from './Button'
 import Text from './Text'
 
-
 export default function Form({ label, inputWidth, placeholder, buttonWidth, buttonLabel, justifyContent, value, onChange, onSubmit, ...props }) {
     return <Box
         {...props}>
